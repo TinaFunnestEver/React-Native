@@ -21,6 +21,24 @@ export const fetchComments = () => dispatch => {
         .catch(error => dispatch(commentsFailed(error.message)));
 };
 
+export const addComment = comment => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+});
+
+export const postComment = (campsiteId, rating, author, text) => dispatch => {
+    const newComment = {
+        campsiteId,
+        rating,
+        author,
+        text,
+        date: new Date().toISOString()
+    };
+    setTimeout(() => {
+        dispatch(addComment(newComment));
+    }, 2000);
+};
+
 export const commentsFailed = errMess => ({
     type: ActionTypes.COMMENTS_FAILED,
     payload: errMess
@@ -140,4 +158,15 @@ export const partnersFailed = errMess => ({
 export const addPartners = partners => ({
     type: ActionTypes.ADD_PARTNERS,
     payload: partners
+});
+
+export const postFavorite = campsiteId => dispatch => {
+    setTimeout(() => {
+        dispatch(addFavorite(campsiteId));
+    }, 2000);
+};
+
+export const addFavorite = campsiteId => ({
+    type: ActionTypes.ADD_FAVORITE,
+    payload: campsiteId
 });
